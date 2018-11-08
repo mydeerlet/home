@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mydeerlet.home">
+
+    <application
+        android:name=".HomeApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+
+        <!--
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            adjustResize：该Activity总是调整屏幕的大小以便留出软键盘的空间
+            stateHidden：用户选择activity时，软键盘总是被隐藏
+            android:screenOrientation="portrait"是限制此页面数竖屏显示。
+         -->
+
+
+        <activity android:name=".activity.LaunchActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:screenOrientation="portrait">
+        </activity>
+    </application>
+
+</manifest>

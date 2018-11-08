@@ -1,0 +1,69 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.mydeerlet.home"
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //   在使用rxjava的时候，如果没有及时解除订阅，在退出activity的时候，异步线程还在执行。
+    //　　对activity还存在引用，此时就会产生内存泄漏。
+    //　　RxLifecycle就是为了解决rxjava导致的内存泄漏而产生的。
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
+
+    //StatusBarUtil 状态栏工具类（实现沉浸式状态栏/变色状态栏）
+    api 'com.jaeger.statusbarutil:library:1.5.1'
+
+    //mode 是ARouter是阿里巴巴开源的Android平台中对页面、服务提供路由功能的中间件，提倡的是简单且够用。
+    api 'com.alibaba:arouter-api:1.4.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
+
+    //黄油刀
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+
+    // Retrofit其实我们可以理解为OkHttp的加强版，它也是一个网络加载框架。
+    // 底层是使用OKHttp封装的。准确来说,网络请求的工作本质上是OkHttp完成，
+    // 而 Retrofit 仅负责网络请求接口的封装。
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    api 'com.squareup.retrofit2:converter-gson:2.3.0'
+    //okhttp3
+    testImplementation 'com.squareup.okhttp3:mockwebserver:3.11.0'
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+    //rxjava
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    //Android 6.0 （API level 23）中，将权限分成了两类。一类是Install权限（称之为安装时权限），另一类是Runtime权限（称之为运行时权限）。
+    api 'com.github.tbruyelle:rxpermissions:0.10.2'
+}
+
