@@ -1,5 +1,6 @@
 package com.mydeerlet.home;
 
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -90,13 +91,13 @@ public class MainActivity extends BaseActivity {
             replaceFragment("home1");
         }
 
-
         initUpgrade(); //版本更新
     }
 
     /**
      * 版本更新检查
      */
+    @SuppressLint("CheckResult")
     private void initUpgrade() {
 
 
@@ -114,6 +115,7 @@ public class MainActivity extends BaseActivity {
 
 
 
+    //底部图标切换
     private BottomNavigationView.OnNavigationItemReselectedListener mOnNavigationItemReselectedListener
             = new BottomNavigationView.OnNavigationItemReselectedListener() {
         @Override

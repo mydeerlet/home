@@ -1,8 +1,6 @@
 package com.mydeerlet.home.api;
 
-import com.mydeerlet.home.utlis.Constant;
 import com.mydeerlet.home.utlis.LogUtils;
-import com.mydeerlet.home.utlis.ToastFactory;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -86,6 +84,6 @@ public class RxException<T extends Throwable> implements Consumer<T> {
 
     public void onShowMessage(String msg){
         LogUtils.e("RxException",msg);
-        ToastFactory.getToast(Constant.getInstance().getContext(),msg).show();
+//        ToastFactory.getToast(Constant.getInstance().getContext(),msg).show();
     }
 }
