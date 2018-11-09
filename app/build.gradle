@@ -60,10 +60,22 @@ dependencies {
     testImplementation 'com.squareup.okhttp3:mockwebserver:3.11.0'
     //gson
     implementation 'com.google.code.gson:gson:2.8.5'
-    //rxjava
+    //rxjava2
+    api 'io.reactivex.rxjava2:rxjava:2.0.1'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    api 'com.squareup.retrofit2:retrofit:2.3.0'
+    api 'com.squareup.retrofit2:converter-gson:2.3.0'
     api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    api 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+
+
     //Android 6.0 （API level 23）中，将权限分成了两类。一类是Install权限（称之为安装时权限），另一类是Runtime权限（称之为运行时权限）。
     api 'com.github.tbruyelle:rxpermissions:0.10.2'
+
+
+
+
+
+
 }
 
