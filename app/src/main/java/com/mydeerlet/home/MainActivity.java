@@ -1,20 +1,25 @@
 package com.mydeerlet.home;
 
+
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.FrameLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.jaeger.library.StatusBarUtil;
+import com.mydeerlet.home.api.RetrofitManager;
+import com.mydeerlet.home.api.RxConsumer;
+import com.mydeerlet.home.api.RxException;
 import com.mydeerlet.home.base.BaseActivity;
+import com.mydeerlet.home.base.HttpResult;
 import com.mydeerlet.home.bean.UpdateModel;
 import com.mydeerlet.home.fragmentHome.Home1Fragment;
 import com.mydeerlet.home.fragmentHome.Home2Fragment;
@@ -23,16 +28,22 @@ import com.mydeerlet.home.fragmentHome.Home4Fragment;
 import com.mydeerlet.home.router.RouterUtil;
 import com.mydeerlet.home.service.MainService;
 import com.mydeerlet.home.utlis.BottomNavigationViewHelper;
+import com.mydeerlet.home.utlis.Constant;
 import com.mydeerlet.home.utlis.OSUtils;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import java.io.IOException;
 
 import butterknife.BindView;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 
 @Route(path = RouterUtil.Main)
 public class MainActivity extends BaseActivity {
@@ -118,36 +129,31 @@ public class MainActivity extends BaseActivity {
         }
 
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://www.btc789.com/app/btc_app_version.php/") // 设置网络请求的Url地址
-                .addConverterFactory(GsonConverterFactory.create()) // 设置数据解析器
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create()) // 支持RxJava平台
-                .build();
-        // 创建 网络请求接口 的实例
-        final MainService request = retrofit.create(MainService.class);
-        //对 发送请求 进行封装
-        Call<UpdateModel> call = request.getUpdata();
+        RetrofitManager
+                .getInstance(this)
+                .create(MainService.class)
+                .getUpdate()
+                .enqueue(new Callback<HttpResult<UpdateModel>>() {
+                    @Override
+                    public void onResponse(Call<HttpResult<UpdateModel>> call, Response<HttpResult<UpdateModel>> response) {
 
-        //发送网络请求(异步)
-        call.enqueue(new Callback<UpdateModel>() {
-            //请求成功时回调
-            @Override
-            public void onResponse(Call<UpdateModel> call, Response<UpdateModel> response) {
-                //请求处理,输出结果
+                        Log.i("aaa",response.body().getMsg());
+                    }
 
-                Log.i("aaa",response.body().toString());
-                Log.i("aaa",call.toString());
-            }
+                    @Override
+                    public void onFailure(Call<HttpResult<UpdateModel>> call, Throwable t) {
 
-            //请求失败时候的回调
-            @Override
-            public void onFailure(Call<UpdateModel> call, Throwable throwable) {
-                Log.i("aaa","链接失败");
-            }
-        });
+                    }
+                });
+
+
+
+
+
 
 
     }
+
 
 
 

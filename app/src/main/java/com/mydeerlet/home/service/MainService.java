@@ -1,7 +1,9 @@
 package com.mydeerlet.home.service;
 
+import com.mydeerlet.home.base.HttpResult;
 import com.mydeerlet.home.bean.UpdateModel;
 
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -19,6 +21,6 @@ public interface MainService {
     // 如果想直接获得Responsebody中的内容，可以定义网络请求返回值为Call<ResponseBody>
 
 
-    @GET("http://www.btc789.com/app/btc_app_version.php/")
-    Call<UpdateModel> getUpdata ();
+    @GET("http://www.btc789.com/app/btc_app_version.php")
+    Call<HttpResult<UpdateModel>> getUpdate();
 }

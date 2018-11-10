@@ -62,6 +62,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
 
 
+
     public <T>ObservableTransformer<T,T> scheduleObservable(){
         return new ObservableTransformer<T, T>() {
             @Override
