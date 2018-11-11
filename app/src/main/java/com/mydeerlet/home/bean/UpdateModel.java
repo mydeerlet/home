@@ -46,5 +46,15 @@ public class UpdateModel {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    @Override
+    public String toString() {
+        return "UpdateModel{" +
+                "versionCode=" + versionCode +
+                ", versionName='" + versionName + '\'' +
+                ", presentation='" + presentation + '\'' +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }
 

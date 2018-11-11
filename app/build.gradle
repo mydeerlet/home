@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
+
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
     defaultConfig {
         applicationId "com.mydeerlet.home"
         minSdkVersion 21
@@ -68,13 +72,11 @@ dependencies {
     api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     api 'com.squareup.okhttp3:logging-interceptor:3.8.1'
 
-
     //Android 6.0 （API level 23）中，将权限分成了两类。一类是Install权限（称之为安装时权限），另一类是Runtime权限（称之为运行时权限）。
     api 'com.github.tbruyelle:rxpermissions:0.10.2'
 
-
-
-
+    //eventBus
+    api 'org.greenrobot:eventbus:3.1.1'
 
 
 }

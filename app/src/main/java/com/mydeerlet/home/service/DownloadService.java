@@ -131,22 +131,6 @@ public class DownloadService extends IntentService {
         }
     }
 
-//    private void download(String url){
-//        Uri uri = Uri.parse(url);
-//        DownloadManager manager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-//        DownloadManager.Request request = new DownloadManager.Request(uri);
-//        request.setAllowedNetworkTypes(request.NETWORK_MOBILE | request.NETWORK_WIFI);
-//
-//        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-//        String mimeString = mimeTypeMap.getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(url));
-//        request.setMimeType(mimeString);
-//        request.setNotificationVisibility(request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-//        request.setTitle("比特之窗");
-//        request.setVisibleInDownloadsUi(true);
-//        request.setAllowedOverRoaming(false);
-//        request.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS,APKNAME);
-//        manager.enqueue(request);
-//    }
 
 
     private void isEnvironmentAvailable(){
@@ -167,7 +151,7 @@ public class DownloadService extends IntentService {
             Intent install = new Intent(Intent.ACTION_VIEW);
             install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            install.setDataAndType(FileProvider.getUriForFile(this,"com.ergu.btc789.fileprovider",new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),APKNAME)), "application/vnd.android.package-archive");
+            install.setDataAndType(FileProvider.getUriForFile(this,"com.mydeerlet.home.fileprovider",new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),APKNAME)), "application/vnd.android.package-archive");
             startActivity(install);
 
         } else {

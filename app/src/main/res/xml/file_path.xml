@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<root-path-->
+        <!--name="root_path"-->
+        <!--path="." />-->
+    <!--<external-files-path   path="" name="camera_has_sdcard"/>-->
+    <!--<files-path path=""     name="camera_no_sdcard"/>-->
+    <!--<external-path name="appealimage" path="bb/image/" />-->
+    <external-path name="appealimage" path="" />
+</paths>

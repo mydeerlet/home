@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,7 +19,6 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.jaeger.library.StatusBarUtil;
 import com.mydeerlet.home.api.RetrofitManager;
 import com.mydeerlet.home.api.RxConsumer;
-import com.mydeerlet.home.api.RxException;
 import com.mydeerlet.home.base.BaseActivity;
 import com.mydeerlet.home.base.HttpResult;
 import com.mydeerlet.home.bean.UpdateModel;
@@ -37,12 +35,12 @@ import com.mydeerlet.home.utlis.OSUtils;
 import com.mydeerlet.home.utlis.ToastFactory;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @Route(path = RouterUtil.Main)
 public class MainActivity extends BaseActivity implements DownloadReceiver.Receiver {
@@ -52,17 +50,11 @@ public class MainActivity extends BaseActivity implements DownloadReceiver.Recei
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
 
-    private DownloadReceiver mReceiver;
-    private ProgressDialog progressDialog;
+
     /**
      * 当前Fragment
      */
     private Fragment currentFragment;
-
-    /**
-     * 当前版本号Code
-     */
-    private int appVersion;
 
     /**
      * 设置状态栏颜色
@@ -115,6 +107,11 @@ public class MainActivity extends BaseActivity implements DownloadReceiver.Recei
         mReceiver.setReceiver(this);
         initUpgrade(); //版本更新
     }
+
+
+    private int appVersion;
+    private ProgressDialog progressDialog;
+    private DownloadReceiver mReceiver;
 
     /**
      * 版本更新检查
@@ -186,39 +183,39 @@ public class MainActivity extends BaseActivity implements DownloadReceiver.Recei
                         intent.putExtra("name",getString(R.string.app_name) + model.getVersionName());
                         intent.putExtra("receiver",mReceiver);
                         startService(intent);
-//                        showProgressDialog();
-
-                        Log.i("url" , model.getUrl());
+                        showProgressDialog();
 
                     }
                 }).setNegativeButton("忽略",null);
         builder.create().show();
     }
 
-//    private void showProgressDialog(){
-//        progressDialog = new ProgressDialog(this);
-//        progressDialog.setCancelable(false);
-//        progressDialog.setMax(100);
-//        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-//        progressDialog.setMessage("正在下载");
-//        progressDialog.show();
-//    }
+    private void showProgressDialog(){
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMax(100);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setMessage("正在下载");
+        progressDialog.show();
+    }
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
 
-//        if (resultCode == DownloadService.UPDATE_FAILED){
-//            if (progressDialog != null && progressDialog.isShowing()){
-//                progressDialog.dismiss();
-//            }
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle("提示").setMessage("网络不佳");
-//            builder.create().show();
-//        } else if (resultCode == DownloadService.UPDATE_PROGRESS){
-//            progressDialog.setProgress(resultData.getInt("process"));
-//            if (resultData.getInt("process") == 100){
-//                progressDialog.dismiss();
-//            }
-//        }
+//        if resultCode == 2 DownloadService.UPDATE_FAILED 下载完成
+        if (resultCode == DownloadService.UPDATE_FAILED){
+            if (progressDialog != null && progressDialog.isShowing()){
+                progressDialog.dismiss();
+            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle("提示").setMessage("网络不佳");
+            builder.create().show();
+//        if resultCode == 0 DownloadService.UPDATE_PROGRESS 下载进度
+        } else if (resultCode == DownloadService.UPDATE_PROGRESS){
+            progressDialog.setProgress(resultData.getInt("process"));
+            if (resultData.getInt("process") == 100){
+                progressDialog.dismiss();
+            }
+        }
     }
 
 

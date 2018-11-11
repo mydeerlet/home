@@ -5,6 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".HomeApplication"
@@ -38,6 +40,28 @@
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="portrait">
         </activity>
+
+        <!--
+        android:enabled="true"  这个属性用于指示该服务是否能够被实例化。如果设置为true，则能够被实例化，否则不能被实例化。默认值是true
+        android:exported="false" 这个属性用于指示该服务是否能够被其他应用程序组件调用或跟它交互。
+        如果设置为true，则能够被调用或交互，否则不能。设置为false时，
+        只有同一个应用程序的组件或带有相同用户ID的应用程序才能启动或绑定该服务。
+        -->
+        <service android:name=".service.DownloadService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":download"/>
+
+        <provider
+            android:name=".service.DownloadProvider"
+            android:authorities="com.mydeerlet.home.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_path"/>
+        </provider>
+
     </application>
 
 </manifest>
