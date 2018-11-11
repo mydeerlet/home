@@ -10,16 +10,16 @@ public class UpdateModel {
      * url : http://btc789.com/app-release.apk
      */
 
-    private String versionCode;
+    private int versionCode;
     private String versionName;
     private String presentation;
     private String url;
 
-    public String getVersionCode() {
+    public int getVersionCode() {
         return versionCode;
     }
 
-    public void setVersionCode(String versionCode) {
+    public void setVersionCode(int versionCode) {
         this.versionCode = versionCode;
     }
 

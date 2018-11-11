@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.jaeger.library.StatusBarUtil;
+import com.mydeerlet.home.utlis.Constant;
 import com.mydeerlet.home.utlis.OSUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
@@ -31,8 +32,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
         //初始化黄油刀
         ButterKnife.bind(this);
-
-
         setStatusBar();
         initViews();
     }

@@ -1,36 +1,34 @@
 package com.mydeerlet.home.api;
 
-import android.util.Log;
+
 
 import com.mydeerlet.home.base.HttpResult;
-import com.mydeerlet.home.utlis.Constant;
-import com.mydeerlet.home.utlis.ToastFactory;
+import com.mydeerlet.home.bean.UpdateModel;
 
-import io.reactivex.functions.Consumer;
 
-public abstract class RxConsumer<T> implements Consumer<HttpResult<T>> {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public abstract class RxConsumer<T> implements Callback<HttpResult<T>> {
+
 
     @Override
-    public void accept(HttpResult<T> tHttpResult) {
+    public void onResponse(Call<HttpResult<T>> call, Response<HttpResult<T>> response) {
 
-
-        Log.i("aaa",tHttpResult.getCode()+"");
-
-        if (tHttpResult.SUCCESS()){
+        if (response.body().SUCCESS()){
             try {
-                onSuccess(tHttpResult.getData());
+                onSuccess(response.body().getData());
             } catch (Exception e){
                 onError(e.getMessage());
                 e.printStackTrace();
             }
         } else {
-            onError(tHttpResult.getMsg());
+            onError(response.body().getMsg());
         }
     }
 
-    abstract void onSuccess(T t);
+    public abstract void onSuccess(T t);
 
-    private void onError(String msg){
-        ToastFactory.getToast(Constant.getInstance().getContext(),msg).show();
-    }
+    protected abstract void onError(String msg);
 }

@@ -1,5 +1,8 @@
 package com.mydeerlet.home.api;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.mydeerlet.home.utlis.Constant;
 import com.mydeerlet.home.utlis.LogUtils;
 import com.mydeerlet.home.utlis.ToastFactory;
@@ -86,6 +89,7 @@ public class RxException<T extends Throwable> implements Consumer<T> {
 
     public void onShowMessage(String msg){
         LogUtils.e("RxException",msg);
-        ToastFactory.getToast(Constant.getInstance().getContext(),msg).show();
+        Log.i("aaa",msg);
+//        ToastFactory.getToast(context,msg).show();
     }
 }
