@@ -2,17 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="home1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <TextView
+                android:id="@+id/fragment_home_search"
+                android:gravity="center"
+                android:background="@android:color/holo_green_light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="点我搜索"/>
+
+        </android.support.v7.widget.Toolbar>
 
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ss"/>
+        <cn.bingoogolapple.bgabanner.BGABanner
+            android:id="@+id/fragment_home_banner"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:clipChildren="false"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            app:banner_transitionEffect="zoom"
+            app:banner_pointAutoPlayAble="true"
+            app:banner_pointAutoPlayInterval="3000"
+            app:banner_pointTopBottomMargin="10dp"
+            app:banner_pointDrawable="@drawable/indicator_home_banner"
+            app:banner_indicatorGravity="bottom|center_horizontal"
+            app:banner_pointContainerBackground="@color/color_transparent"
+            app:banner_pageChangeDuration="800"
+            app:banner_tipTextSize="15sp"
+            app:banner_tipTextColor="@color/color_white"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:banner_placeholderDrawable="@drawable/ic_launcher_background"/>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+    
 </LinearLayout>

@@ -44,7 +44,7 @@ public class RetrofitManager {
         return instance;
     }
 
-    public static OkHttpClient getOkHttpClient(Context context){
+    private static   OkHttpClient getOkHttpClient(Context context){
         if (okHttpClient == null){
             okHttpClient = new OkHttpClient.Builder()
                     .connectTimeout(10, TimeUnit.SECONDS)
