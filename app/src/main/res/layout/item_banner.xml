@@ -6,7 +6,6 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/item_banner_img"
-        android:background="@android:color/holo_green_light"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:placeholderImage="@mipmap/activity_zixun_detail_mark_click"

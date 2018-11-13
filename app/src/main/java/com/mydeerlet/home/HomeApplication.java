@@ -3,6 +3,7 @@ package com.mydeerlet.home;
 import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import static com.mydeerlet.home.utlis.Constant.DEBUG_MODE;
 
@@ -18,7 +19,6 @@ public class HomeApplication extends Application {
         ARouter.init(this); // 尽可能早，
 
 
-
-
+        Fresco.initialize(this); //始化Fresco类
     }
 }
