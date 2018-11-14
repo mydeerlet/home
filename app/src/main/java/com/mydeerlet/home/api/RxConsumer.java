@@ -3,8 +3,6 @@ package com.mydeerlet.home.api;
 
 
 import com.mydeerlet.home.base.HttpResult;
-import com.mydeerlet.home.bean.UpdateModel;
-
 
 import retrofit2.Call;
 import retrofit2.Callback;

@@ -24,8 +24,12 @@ import com.mydeerlet.home.api.RxConsumer;
 import com.mydeerlet.home.base.BaseFragment;
 import com.mydeerlet.home.base.HttpResult;
 import com.mydeerlet.home.bean.BannerModel;
+import com.mydeerlet.home.bean.ChannelBean;
 import com.mydeerlet.home.home1.fragment.FragmentHome1;
 import com.mydeerlet.home.service.Home1Service;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
@@ -51,9 +55,10 @@ public class Home1Fragment extends BaseFragment {
     ImageButton fragmentHomeBtnMore;
     @BindView(R.id.fragment_home_viewPager)
     ViewPager mViewPager;
+    @BindView(R.id.fragment_home_smartRefreshLayout)
+    SmartRefreshLayout mRefreshLayout;
 
     private Context mContext;
-
 
 
     @Nullable
@@ -75,13 +80,21 @@ public class Home1Fragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        initData();
+        getData();
         getChannel();
+
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                getData();
+
+            }
+        });
 
     }
 
 
-    private void initData() {
+    private void getData() {
 
         RetrofitManager
                 .getInstance(getContext())
@@ -114,26 +127,69 @@ public class Home1Fragment extends BaseFragment {
                     }
                 });
 
-
+        mRefreshLayout.finishRefresh();
     }
 
 
-
-    //模拟数据
-    private final String[] mTitles = {
-            "热门", "iOS", "Android"
-            , "前端", "后端", "设计", "工具资源"
-    };
-
-
+    //获取数据
     public void getChannel() {
 
 
-        HomeFragmentPageAdapter  mAdapter = new HomeFragmentPageAdapter(getChildFragmentManager(),mTitles);
-        mViewPager.setAdapter(mAdapter);
+        RetrofitManager.getInstance(mContext)
+                .create(Home1Service.class)
+                .getChannel()
+                .enqueue(new RxConsumer<List<ChannelBean>>() {
+                    @Override
+                    public void onSuccess(List<ChannelBean> channelBeans) {
 
-        //绑定viewPage ，设置数据
-        fragmentHomeTabLayout.setViewPager(mViewPager,mTitles);
+                        //排好序，设置好能否移动，再存到本地
+                        List<ChannelBean> channelBeanList = channelBeans;
+                        int position = 0;
+                        if (!channelBeans.get(0).getColname().equals("头条")){
+                            position++;
+                            channelBeanList.add(0,new ChannelBean(0,"","头条",null,1,true));
+                        }
+
+                        if (!channelBeans.get(1).getColname().equals("视频")){
+                            position++;
+                            channelBeanList.add(1,new ChannelBean(1,"","视频",null,1,true));
+                        }
+
+                        for (ChannelBean channelBean: channelBeanList) {
+                            channelBean.setSpanSize(1);
+                            channelBean.setPosition(position);
+                            channelBean.setLock(position == 0 || position == 1);
+                            position++;
+                        }
+
+                        //获取标题，填充tab和viewpager
+                        String[] mTitles = new String[channelBeans.size()];
+                        for (int i = 0; i < mTitles.length; i++){
+                            mTitles[i] = channelBeans.get(i).getColname();
+                        }
+
+                        mViewPager.setAdapter(new HomeFragmentPageAdapter(getChildFragmentManager(), channelBeans));
+                        //绑定viewPage ，设置数据
+                        fragmentHomeTabLayout.setViewPager(mViewPager, mTitles);
+                    }
+
+                    @Override
+                    protected void onError(String msg) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<HttpResult<List<ChannelBean>>> call, Throwable t) {
+
+                    }
+                });
+
+
+
+
+
+
+
     }
 
 
@@ -164,40 +220,31 @@ public class Home1Fragment extends BaseFragment {
 //    }
 
 
-
-
     private static class HomeFragmentPageAdapter extends FragmentStatePagerAdapter {
 
-        private String[] mTitles;
+        private List<ChannelBean> list;
 
-        public HomeFragmentPageAdapter(FragmentManager fm, String[] mTitles) {
+        public HomeFragmentPageAdapter(FragmentManager fm,  List<ChannelBean> list) {
             super(fm);
-            this.mTitles = mTitles;
+            this.list = list;
         }
 
         @Override
         public Fragment getItem(int position) {
             FragmentHome1 fragment = new FragmentHome1();
             Bundle bundle = new Bundle();
-
-            if (position==0){
-                bundle.putInt("type",0);
-            }else {
-                bundle.putInt("type",1);
-            }
-
+            bundle.putString("cid",list.get(position).getCatid());
+            bundle.putInt("index",position);
             fragment.setArguments(bundle);
             return fragment;
         }
 
         @Override
         public int getCount() {
-            return mTitles == null ? 0 : mTitles.length;
+            return list == null ? 0 : list.size();
         }
 
     }
-
-
 
 
     @Override

@@ -8,7 +8,8 @@
     app:srlEnableAutoLoadMore="false"
     app:srlEnableRefresh="false"
     android:id="@+id/fragment_zixun_smartRefreshLayout"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".home1.fragment.FragmentHome1">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_zixun_recyclerView"

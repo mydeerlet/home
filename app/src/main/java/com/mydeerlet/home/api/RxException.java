@@ -1,11 +1,8 @@
 package com.mydeerlet.home.api;
 
-import android.content.Context;
 import android.util.Log;
 
-import com.mydeerlet.home.utlis.Constant;
 import com.mydeerlet.home.utlis.LogUtils;
-import com.mydeerlet.home.utlis.ToastFactory;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;

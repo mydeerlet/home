@@ -99,5 +99,7 @@ dependencies {
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
 //RecyclerView粘性头部控件 - sticky-headers-recyclerview
     api 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
+
+    implementation 'com.tapadoo.android:alerter:3.0.0'
 }
 

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/item_zixun_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/item_zixun_image"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="带你解密最近超火的“宇宙无敌币”！"
+        android:textColor="@color/color_333"
+        android:textSize="15sp"
+        android:lines="2"
+        android:lineSpacingExtra="8dp"/>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/item_zixun_image"
+        android:layout_width="115dp"
+        android:layout_height="75dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:roundedCornerRadius="5dp"
+        app:fadeDuration="300"
+        app:placeholderImage="@drawable/ic_launcher_background"
+        app:actualImageScaleType="centerCrop"
+        app:placeholderImageScaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/item_zixun_source"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="百科"
+        android:textSize="11sp"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/item_zixun_image"/>
+
+    <TextView
+        android:id="@+id/item_zixun_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="春天财经"
+        android:textSize="11sp"
+        android:textColor="@color/color_999"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/item_zixun_source"
+        app:layout_constraintBottom_toBottomOf="@+id/item_zixun_image"/>
+
+    <TextView
+        android:id="@+id/item_zixun_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2小时前"
+        android:textSize="11sp"
+        android:textColor="@color/color_999"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toRightOf="@+id/item_zixun_author"
+        app:layout_constraintBottom_toBottomOf="@+id/item_zixun_image"/>
+
+
+</android.support.constraint.ConstraintLayout>

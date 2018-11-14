@@ -15,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.jaeger.library.StatusBarUtil;
 import com.mydeerlet.home.api.RetrofitManager;
@@ -34,8 +35,6 @@ import com.mydeerlet.home.utlis.BottomNavigationViewHelper;
 import com.mydeerlet.home.utlis.OSUtils;
 import com.mydeerlet.home.utlis.ToastFactory;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import io.reactivex.annotations.NonNull;
@@ -106,7 +105,32 @@ public class MainActivity extends BaseActivity implements DownloadReceiver.Recei
         mReceiver = new DownloadReceiver(new Handler());
         mReceiver.setReceiver(this);
         initUpgrade(); //版本更新
+
     }
+
+
+    /**
+     * Android仿微信未读消息数提示数字之BadgeView的使用
+     */
+
+//    private void initBadge(){
+//        //获取整个的NavigationView
+//        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
+//        //这里就是获取所添加的每一个Tab(或者叫menu)，
+//        View tab = menuView.getChildAt(2);
+//        BottomNavigationItemView itemView = (BottomNavigationItemView) tab;
+//        badge = new QBadgeView(this);
+//        badge.bindTarget(itemView);
+//        badge.setShowShadow(false);
+//        badge.setGravityOffset(12,2,true);
+//        badge.setOnDragStateChangedListener(new Badge.OnDragStateChangedListener() {
+//            @Override
+//            public void onDragStateChanged(int dragState, Badge badge, View targetView) {
+//            }
+//        });
+//    }
+
+
 
 
     private int appVersion;
