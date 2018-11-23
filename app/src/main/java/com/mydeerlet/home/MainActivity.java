@@ -35,6 +35,7 @@ import com.mydeerlet.home.utlis.BottomNavigationViewHelper;
 import com.mydeerlet.home.utlis.OSUtils;
 import com.mydeerlet.home.utlis.ToastFactory;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.umeng.socialize.UMShareAPI;
 
 import butterknife.BindView;
 import io.reactivex.annotations.NonNull;
@@ -331,5 +332,10 @@ public class MainActivity extends BaseActivity implements DownloadReceiver.Recei
         return findViewById(R.id.container);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    }
 
 }

@@ -1,10 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="home3"/>
-</LinearLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/fragment_home3_tb"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:navigationIcon="@mipmap/activity_zixun_detail_mark_click"
+        tools:layout_editor_absoluteX="150dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="每日签到"
+            android:textColor="@color/color_333"
+            android:textSize="18sp"/>
+
+
+    </android.support.v7.widget.Toolbar>
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>
